@@ -3,6 +3,7 @@ trying things out. i've figured out where i'll keep my notebook/home server long
 get some useful things running.
 
 # todos
+- [ ] configure boring 'init' chores on ansible (handle lid, disable bell, etc.)
 - [ ] torrent server (configured w/ my custom sources, if i can manage)
 - [ ] jellyfin (for streaming my media) 
 - [ ] NAS-like control for files
