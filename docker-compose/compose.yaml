@@ -12,7 +12,7 @@ services:
     image: lscr.io/linuxserver/transmission:latest
     volumes:
       - /homeserver/appdata/transmission:/config
-      - /homeserver/data/torrents:/downloads
+      - /homeserver/data/torrents:/data/torrents
     environment:
       - PUID=1000
       - PGID=1000
