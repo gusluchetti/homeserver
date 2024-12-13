@@ -35,6 +35,19 @@ services:
     environment:
       - SQLITE_DATABASE=nextcloud
 
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ~/data/prowlarr/config:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
@@ -49,19 +62,3 @@ services:
     ports:
       - 8989:8989
     restart: unless-stopped
-
-  prowlarr:
-    image: lscr.io/linuxserver/prowlarr:latest
-    container_name: prowlarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-    volumes:
-      - ~/data/prowlarr/config:/config
-    ports:
-      - 9696:9696
-    restart: unless-stopped
-
-volumes:
-  portainer_data:
