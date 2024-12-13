@@ -12,7 +12,7 @@ services:
     image: lscr.io/linuxserver/transmission:latest
     volumes:
       - /homeserver/data/transmission:/config
-      - /homeserver/downloads:/downloads
+      - /homeserver/downloads:/data/downloads
     environment:
       - PUID=1000
       - PGID=1000
@@ -62,7 +62,7 @@ services:
     volumes:
       - /homeserver/data/sonarr:/config
       - /homeserver/media:/data/media
-      - /homeserver/downloads:/data/downloads
+      - /homeserver/downloads:/data
     ports:
       - 8989:8989
     restart: unless-stopped
