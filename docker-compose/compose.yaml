@@ -1,12 +1,4 @@
 services:
-  portainer:
-    image: portainer/portainer-ce:latest
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-    ports:
-      - "9000:9000"
-
   homer:
     image: b4bz/homer:latest
     volumes:
@@ -42,6 +34,34 @@ services:
       - "8080:80"
     environment:
       - SQLITE_DATABASE=nextcloud
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ~/data/sonarr/config:/config
+      - ~/data/sonarr/data/tv:/tv
+      - ~/data/sonarr/data/downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ~/data/prowlarr/config:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
 
 volumes:
   portainer_data:
