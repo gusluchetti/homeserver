@@ -1,0 +1,52 @@
+---
+- hosts: homeserver
+  become: yes
+  vars:
+    docker_compose_version: "2.24.5"
+    docker_network: "home_network"
+    data_directory: "~/data"
+
+  pre_tasks:
+    - name: Update and upgrade system packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+  tasks:
+    - name: Install required system packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - network-manager
+
+    - name: Install Docker dependencies
+      apt:
+        name:
+          - docker.io
+          - docker-compose-plugin
+
+    - name: Ensure docker group exists
+      group:
+        name: docker
+        state: present
+
+    - name: Create data directory
+      file:
+        path: "{{ data_directory }}"
+        state: directory
+        mode: '0755'
+
+    - name: Start docker services
+      community.docker.docker_compose:
+        project_src: "/opt/homeserver"
+        state: present
+
+  handlers:
+    - name: Restart docker
+      service:
+        name: docker
+        state: restarted
