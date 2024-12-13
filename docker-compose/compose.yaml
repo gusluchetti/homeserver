@@ -12,7 +12,7 @@ services:
     volumes:
       - ./homer-config:/www/assets
     ports:
-      - "8080:8080"
+      - "8181:8080"
 
   transmission:
     image: lscr.io/linuxserver/transmission:latest
