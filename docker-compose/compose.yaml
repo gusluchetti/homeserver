@@ -2,15 +2,15 @@ services:
   homer:
     image: b4bz/homer:latest
     volumes:
-      - ./homer-config:/www/assets
+      - /data/homer/config:/www/assets
     ports:
       - "8181:8080"
 
   transmission:
     image: lscr.io/linuxserver/transmission:latest
     volumes:
-      - ~/data/transmission/downloads:/downloads
-      - ./transmission-config:/config
+      - /data/torrents:/downloads
+      - /data/transmission/config:/config
     environment:
       - PUID=1000
       - PGID=1000
@@ -20,16 +20,16 @@ services:
   jellyfin:
     image: jellyfin/jellyfin:latest
     volumes:
-      - ~/data/jellyfin/media:/media
-      - ./jellyfin-config:/config
-      - ./jellyfin-cache:/cache
+      - /data/jellyfin/config:/config
+      - /data/jellyfin/cache:/cache
+      - /data/media:/media
     ports:
       - "8096:8096"
 
   nextcloud:
     image: nextcloud:latest
     volumes:
-      - ~/data/nextcloud:/var/www/html
+      - /data/nextcloud:/var/www/html
     ports:
       - "8080:80"
     environment:
@@ -43,7 +43,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - ~/data/prowlarr/config:/config
+      - /data/prowlarr/config:/config
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -56,9 +56,9 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - ~/data/sonarr/config:/config
-      - ~/data/sonarr/data/tv:/tv
-      - ~/data/sonarr/data/downloads:/downloads
+      - /data/sonarr/config:/config
+      - /data/media:/data/media
+      - /data/torrents:/data/torrents
     ports:
       - 8989:8989
     restart: unless-stopped
