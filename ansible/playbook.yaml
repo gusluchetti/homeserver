@@ -1,10 +1,8 @@
 ---
-- hosts: homeserver
+- hosts: lab
   become: yes
   vars:
-    docker_compose_version: "2.24.5"
-    docker_network: "home_network"
-    data_directory: "~/data"
+    lab_directory: "/lab/"
 
   pre_tasks:
     - name: Update and upgrade system packages
@@ -13,20 +11,27 @@
         upgrade: dist
 
   tasks:
-    - name: Install required system packages
+    - name: Install misc. dependencies
       apt:
         name:
-          - apt-transport-https
           - ca-certificates
           - curl
-          - software-properties-common
-          - python3-pip
-          - network-manager
 
-    - name: Install Docker dependencies
+    - name: Setup Docker repository
+      # TODO: check how to run multiple commands like this
+      command:
+        - sudo install -m 0755 -d /etc/apt/keyrings
+        - sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+        - sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+
+    - name: Install Docker packages
       apt:
         name:
-          - docker.io
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
           - docker-compose-plugin
 
     - name: Ensure docker group exists
@@ -34,16 +39,11 @@
         name: docker
         state: present
 
-    - name: Create data directory
+    - name: Create lab directory
       file:
-        path: "{{ data_directory }}"
+        path: "{{ lab_directory }}"
         state: directory
         mode: '0755'
-
-    - name: Start docker services
-      community.docker.docker_compose:
-        project_src: "/opt/homeserver"
-        state: present
 
   handlers:
     - name: Restart docker
