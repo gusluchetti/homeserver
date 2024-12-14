@@ -1,8 +1,6 @@
 ---
 - hosts: lab
   become: yes
-  vars:
-    lab_directory: "/lab/"
 
   pre_tasks:
     - name: Update and upgrade system packages
@@ -16,14 +14,42 @@
         name:
           - ca-certificates
           - curl
+          - wget
+          - git
+        state: present
+
+    - name: Create APT keyrings dir
+      shell: sudo install -m 0755 -d /etc/apt/keyrings
+
+    - name: Setup Firefox repository
+      shell: |
+        wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+        echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee /etc/apt/sources.list.d/mozilla.list > /dev/null
+
+    - name: Add APT preferences for Mozilla repository
+      copy:
+        dest: /etc/apt/preferences.d/mozilla
+        content: |
+          Package: *
+          Pin: origin packages.mozilla.org
+          Pin-Priority: 1000
 
     - name: Setup Docker repository
-      # TODO: check how to run multiple commands like this
-      command:
-        - sudo install -m 0755 -d /etc/apt/keyrings
-        - sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-        - sudo chmod a+r /etc/apt/keyrings/docker.asc
+      shell: |
+        sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+        sudo chmod a+r /etc/apt/keyrings/docker.asc
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+        $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
+    - name: Update system packages
+      apt:
+        update_cache: yes
+
+    - name: Install Firefox
+      apt:
+        name: firefox
+        state: present
 
     - name: Install Docker packages
       apt:
@@ -33,6 +59,7 @@
           - containerd.io
           - docker-buildx-plugin
           - docker-compose-plugin
+        state: present
 
     - name: Ensure docker group exists
       group:
@@ -41,12 +68,6 @@
 
     - name: Create lab directory
       file:
-        path: "{{ lab_directory }}"
+        path: "/lab/"
         state: directory
         mode: '0755'
-
-  handlers:
-    - name: Restart docker
-      service:
-        name: docker
-        state: restarted
