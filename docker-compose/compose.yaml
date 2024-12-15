@@ -3,7 +3,7 @@ services:
     container_name: homer
     image: b4bz/homer:latest
     volumes:
-      - /homeserver/appdata/homer:/www/assets
+      - /lab/appdata/homer:/www/assets
     ports:
       - "8181:8080"
 
@@ -11,8 +11,8 @@ services:
     container_name: transmission
     image: lscr.io/linuxserver/transmission:latest
     volumes:
-      - /homeserver/appdata/transmission:/config
-      - /homeserver/data/torrents:/data/torrents
+      - /lab/appdata/transmission:/config
+      - /lab/data/torrents:/data/torrents
     environment:
       - PUID=1000
       - PGID=1000
@@ -23,9 +23,9 @@ services:
     container_name: jellyfin
     image: jellyfin/jellyfin:latest
     volumes:
-      - /homeserver/appdata/jellyfin:/config
-      - /homeserver/appdata/jellyfin/cache:/cache
-      - /homeserver/data/media:/media
+      - /lab/appdata/jellyfin:/config
+      - /lab/appdata/jellyfin/cache:/cache
+      - /lab/data/media:/media
     ports:
       - "8096:8096"
 
@@ -33,7 +33,7 @@ services:
     container_name: nextcloud
     image: nextcloud:latest
     volumes:
-      - /homeserver/appdata/nextcloud:/var/www/html
+      - /lab/appdata/nextcloud:/var/www/html
     ports:
       - "8080:80"
     environment:
@@ -47,7 +47,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /homeserver/appdata/prowlarr:/config
+      - /lab/appdata/prowlarr:/config
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -60,8 +60,23 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /homeserver/appdata/sonarr:/config
-      - /homeserver/data:/data
+      - /lab/appdata/sonarr:/config
+      - /lab/data:/data
     ports:
       - 8989:8989
     restart: unless-stopped
+
+  radarr:
+    container_name: radarr
+    image: lscr.io/linuxserver/radarr:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /lab/appdata/radarr:/config
+      - /lab/data:/data
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
