@@ -80,3 +80,16 @@ services:
       - 7878:7878
     restart: unless-stopped
 
+  bazarr:
+    container_name: bazarr
+    image: lscr.io/linuxserver/bazarr:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /lab/appdata/bazarr:/config
+      - /lab/data:/data
+    ports:
+      - 6767:6767
+    restart: unless-stopped
