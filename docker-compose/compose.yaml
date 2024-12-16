@@ -1,23 +1,7 @@
 services:
-  homarr:
-    container_name: homarr
-    image: ghcr.io/ajnart/homarr:latest
-    restart: unless-stopped
-    networks:
-      - media_network
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
-      - /lab/appdata/homarr/configs:/app/data/configs
-      - /lab/appdata/homarr/icons:/app/public/icons
-      - /lab/appdata/homarr/data:/data
-    ports:
-      - '7575:7575'
-
   transmission:
     container_name: transmission
-    image: lscr.io/linuxserver/transmission:latest
-    networks:
-      - media_network
+    image: lscr.io/linuxserver/transmission
     volumes:
       - /lab/appdata/transmission:/config
       - /lab/data/torrents:/data/torrents
@@ -29,9 +13,7 @@ services:
 
   jellyfin:
     container_name: jellyfin
-    image: jellyfin/jellyfin:latest
-    networks:
-      - media_network
+    image: jellyfin/jellyfin
     volumes:
       - /lab/appdata/jellyfin:/config
       - /lab/appdata/jellyfin/cache:/cache
@@ -41,9 +23,7 @@ services:
 
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:latest
-    networks:
-      - media_network
+    image: nextcloud
     volumes:
       - /lab/appdata/nextcloud:/var/www/html
     ports:
@@ -53,9 +33,7 @@ services:
 
   prowlarr:
     container_name: prowlarr
-    image: lscr.io/linuxserver/prowlarr:latest
-    networks:
-      - media_network
+    image: lscr.io/linuxserver/prowlarr
     environment:
       - PUID=1000
       - PGID=1000
@@ -68,9 +46,7 @@ services:
 
   sonarr:
     container_name: sonarr
-    image: lscr.io/linuxserver/sonarr:latest
-    networks:
-      - media_network
+    image: lscr.io/linuxserver/sonarr
     environment:
       - PUID=1000
       - PGID=1000
@@ -84,9 +60,7 @@ services:
 
   radarr:
     container_name: radarr
-    image: lscr.io/linuxserver/radarr:latest
-    networks:
-      - media_network
+    image: lscr.io/linuxserver/radarr
     environment:
       - PUID=1000
       - PGID=1000
@@ -100,9 +74,7 @@ services:
 
   bazarr:
     container_name: bazarr
-    image: lscr.io/linuxserver/bazarr:latest
-    networks:
-      - media_network
+    image: lscr.io/linuxserver/bazarr
     environment:
       - PUID=1000
       - PGID=1000
@@ -113,7 +85,3 @@ services:
     ports:
       - 6767:6767
     restart: unless-stopped
-
-networks:
-  media_network:
-    driver: "bridge"
