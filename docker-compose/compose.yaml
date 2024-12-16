@@ -1,11 +1,15 @@
 services:
-  homer:
-    container_name: homer
-    image: b4bz/homer:latest
+  homarr:
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
     volumes:
-      - /lab/appdata/homer:/www/assets
+      - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
+      - /lab/appdata/homarr/configs:/app/data/configs
+      - /lab/appdata/homarr/icons:/app/public/icons
+      - /lab/appdata/homarr/data:/data
     ports:
-      - "8181:8080"
+      - '7575:7575'
 
   transmission:
     container_name: transmission
