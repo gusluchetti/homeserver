@@ -1,5 +1,7 @@
+name: gaming
+
 services:
-  mc:
+  mc-atm10_2.9:
     image: itzg/minecraft-server
     tty: true
     stdin_open: true
@@ -10,8 +12,9 @@ services:
       MOD_PLATFORM: AUTO_CURSEFORGE
       CF_API_KEY: ${CF_API_KEY}
       CF_SLUG: all-the-mods-10
+      CF_FILENAME_MATCHER: 2.9
       MEMORY: 6G
       CF_OVERRIDES_EXCLUSIONS: |
         shaderpacks/**
     volumes:
-      - /lab/gaming/minecraft:/data
+      - /lab/gaming/minecraft/atm10_2.9:/data

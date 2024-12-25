@@ -1,3 +1,5 @@
+name: lab
+
 services:
   transmission:
     container_name: transmission
