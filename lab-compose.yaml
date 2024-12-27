@@ -1,17 +1,23 @@
 name: lab
 
 services:
-  transmission:
-    container_name: transmission
-    image: lscr.io/linuxserver/transmission
-    volumes:
-      - /lab/appdata/transmission:/config
-      - /lab/data/torrents:/data/torrents
+qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
     environment:
+      - TZ=America/Sao_Paulo
       - PUID=1000
       - PGID=1000
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
+    volumes:
+      - /lab/appdata/qbittorrent:/config
+      - /lab/data:/data
     ports:
-      - "9091:9091"
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
 
   jellyfin:
     container_name: jellyfin
@@ -37,9 +43,9 @@ services:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr
     environment:
+      - TZ=America/Sao_Paulo
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
     volumes:
       - /lab/appdata/prowlarr:/config
     ports:
@@ -50,9 +56,9 @@ services:
     container_name: sonarr
     image: lscr.io/linuxserver/sonarr
     environment:
+      - TZ=America/Sao_Paulo
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
     volumes:
       - /lab/appdata/sonarr:/config
       - /lab/data:/data
@@ -64,9 +70,9 @@ services:
     container_name: radarr
     image: lscr.io/linuxserver/radarr
     environment:
+      - TZ=America/Sao_Paulo
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
     volumes:
       - /lab/appdata/radarr:/config
       - /lab/data:/data
@@ -78,9 +84,9 @@ services:
     container_name: bazarr
     image: lscr.io/linuxserver/bazarr
     environment:
+      - TZ=America/Sao_Paulo
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
     volumes:
       - /lab/appdata/bazarr:/config
       - /lab/data:/data
