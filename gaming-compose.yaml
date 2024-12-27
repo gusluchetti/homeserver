@@ -1,7 +1,7 @@
 name: gaming
 
 services:
-  mc-atm10_2.9:
+  mc(atm10_2.9):
     image: itzg/minecraft-server
     tty: true
     stdin_open: true
