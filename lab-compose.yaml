@@ -11,8 +11,8 @@ services:
       - WEBUI_PORT=8081
       - TORRENTING_PORT=6881
     volumes:
-      - /lab/appdata/qbittorrent:/config
-      - /lab/data:/data
+      - /home/lab/appdata/qbittorrent:/config
+      - /home/lab/data:/data
     ports:
       - 8081:8081
       - 6881:6881
@@ -23,9 +23,9 @@ services:
     container_name: jellyfin
     image: jellyfin/jellyfin
     volumes:
-      - /lab/appdata/jellyfin:/config
-      - /lab/appdata/jellyfin/cache:/cache
-      - /lab/data/media:/media
+      - /home/lab/appdata/jellyfin:/config
+      - /home/lab/appdata/jellyfin/cache:/cache
+      - /home/lab/data/media:/media
     ports:
       - "8096:8096"
 
@@ -33,7 +33,7 @@ services:
     container_name: nextcloud
     image: nextcloud
     volumes:
-      - /lab/appdata/nextcloud:/var/www/html
+      - /home/lab/appdata/nextcloud:/var/www/html
     ports:
       - "8080:80"
     environment:
@@ -47,7 +47,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /lab/appdata/prowlarr:/config
+      - /home/lab/appdata/prowlarr:/config
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -60,8 +60,8 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /lab/appdata/sonarr:/config
-      - /lab/data:/data
+      - /home/lab/appdata/sonarr:/config
+      - /home/lab/data:/data
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -74,8 +74,8 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /lab/appdata/radarr:/config
-      - /lab/data:/data
+      - /home/lab/appdata/radarr:/config
+      - /home/lab/data:/data
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -88,8 +88,8 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /lab/appdata/bazarr:/config
-      - /lab/data:/data
+      - /home/lab/appdata/bazarr:/config
+      - /home/lab/data:/data
     ports:
       - 6767:6767
     restart: unless-stopped

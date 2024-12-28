@@ -27,4 +27,4 @@ services:
       MODE: survival
       DIFFICULTY: hard
     volumes:
-      - /lab/gaming/minecraft/atm10:/data
+      - /home/lab/gaming/minecraft/atm10:/data
