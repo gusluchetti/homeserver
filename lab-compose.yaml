@@ -8,13 +8,13 @@ services:
       - TZ=America/Sao_Paulo
       - PUID=1000
       - PGID=1000
-      - WEBUI_PORT=8080
+      - WEBUI_PORT=8081
       - TORRENTING_PORT=6881
     volumes:
       - /lab/appdata/qbittorrent:/config
       - /lab/data:/data
     ports:
-      - 8080:8080
+      - 8081:8081
       - 6881:6881
       - 6881:6881/udp
     restart: unless-stopped
