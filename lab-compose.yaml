@@ -28,6 +28,7 @@ services:
       - /home/lab/data/media:/media
     ports:
       - "8096:8096"
+    restart: unless-stopped
 
   nextcloud:
     container_name: nextcloud
@@ -38,6 +39,7 @@ services:
       - "8080:80"
     environment:
       - SQLITE_DATABASE=nextcloud
+    restart: unless-stopped
 
   prowlarr:
     container_name: prowlarr
