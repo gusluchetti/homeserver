@@ -1,7 +1,7 @@
 name: gaming
 
 services:
-  mc-atm10_2.11:
+  mc-atm10_2.41:
     image: itzg/minecraft-server
     tty: true
     stdin_open: true
@@ -12,11 +12,11 @@ services:
       MOD_PLATFORM: AUTO_CURSEFORGE
       CF_API_KEY: ${CF_API_KEY}
       CF_SLUG: all-the-mods-10
-      CF_FILENAME_MATCHER: 2.11
+      CF_FILENAME_MATCHER: 2.41
+      MOTD: "BR - Running ATM10 v2.41"
       MEMORY: 6G
       CF_OVERRIDES_EXCLUSIONS: |
         shaderpacks/**
-      MOTD: "BR - Running ATM10 v2.11"
       ICON: "https://e7.pngegg.com/pngimages/284/925/png-clipart-kirby-s-return-to-dream-land-kirby-super-star-video-games-kirby-squeak-squad-kirby-searching-thumbnail.png"
       OPS: | 
         7870ac2b-0d5f-4c9a-ae0c-f4fd50b5fbc1
