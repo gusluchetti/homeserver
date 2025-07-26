@@ -1,0 +1,11 @@
+services:
+  archisteamfarm:
+    image: 'justarchi/archisteamfarm:latest'
+    container_name: asf
+    pull_policy: always
+    stdin_open: true
+    tty: true
+    environment:
+      - ASF_STEAM_PASSWD=${ASF_STEAM_PASSWD}
+    volumes:
+      - './config:/app/config'
