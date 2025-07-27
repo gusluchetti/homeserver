@@ -1,3 +1,5 @@
 .env
+# ASF RELATED
 *.maFile*
 SteamTokenDumper.cache
+*.db
