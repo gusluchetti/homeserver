@@ -1,6 +1,6 @@
 {
   "Enabled": true,
-  "OnlineStatus": 3,
+  "OnlineStatus": 0,
   "PasswordFormat": 3,
   "SteamLogin": "magicalstag",
   "SteamPassword": "ASF_STEAM_PASSWD"
