@@ -1,8 +1,7 @@
 services:
   archisteamfarm:
-    image: 'justarchi/archisteamfarm:latest'
+    image: 'justarchi/archisteamfarm'
     container_name: asf
-    pull_policy: always
     stdin_open: true
     tty: true
     environment:
