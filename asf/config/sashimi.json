@@ -1,7 +1,7 @@
 {
-  "Enabled": true,
-  "OnlineStatus": 0,
-  "PasswordFormat": 3,
-  "SteamLogin": "magicalstag",
-  "SteamPassword": "ASF_STEAM_PASSWD"
+	"Enabled": true,
+	"OnlineStatus": 0,
+	"PasswordFormat": 3,
+	"SteamLogin": "magicalstag",
+	"SteamPassword": "ASF_STEAM_PASSWD"
 }
