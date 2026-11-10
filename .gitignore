@@ -1,5 +1,7 @@
 .env
 # ASF RELATED
+# Real configs hold your Steam login and SteamID; copy from asf/config.example/
+asf/config/
 *.maFile*
 SteamTokenDumper.cache
 *.db
